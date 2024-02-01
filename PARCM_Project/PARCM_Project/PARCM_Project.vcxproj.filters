@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="RayTracing">
+      <UniqueIdentifier>{bf35ff8c-06af-4baf-a78d-67c646fa91c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Temp">
+      <UniqueIdentifier>{c16ad615-f132-4932-a0b0-d737085d53f5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="RTImage.cpp">
+      <Filter>RayTracing</Filter>
+    </ClCompile>
+    <ClCompile Include="AGameObject.cpp">
+      <Filter>Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseRunner.cpp">
+      <Filter>Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="BGObject.cpp">
+      <Filter>Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSCounter.cpp">
+      <Filter>Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectManager.cpp">
+      <Filter>Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="IconObject.cpp">
+      <Filter>Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="IETThread.cpp">
+      <Filter>Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="MathUtils.cpp">
+      <Filter>Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="StringUtils.cpp">
+      <Filter>Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureDisplay.cpp">
+      <Filter>Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Temp</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="RTImage.h">
+      <Filter>RayTracing</Filter>
+    </ClInclude>
+    <ClInclude Include="vec3.h">
+      <Filter>RayTracing</Filter>
+    </ClInclude>
+    <ClInclude Include="color.h">
+      <Filter>RayTracing</Filter>
+    </ClInclude>
+    <ClInclude Include="ray.h">
+      <Filter>RayTracing</Filter>
+    </ClInclude>
+    <ClInclude Include="AGameObject.h">
+      <Filter>Temp</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseRunner.h">
+      <Filter>Temp</Filter>
+    </ClInclude>
+    <ClInclude Include="BGObject.h">
+      <Filter>Temp</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSCounter.h">
+      <Filter>Temp</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectManager.h">
+      <Filter>Temp</Filter>
+    </ClInclude>
+    <ClInclude Include="IconObject.h">
+      <Filter>Temp</Filter>
+    </ClInclude>
+    <ClInclude Include="IETThread.h">
+      <Filter>Temp</Filter>
+    </ClInclude>
+    <ClInclude Include="MathUtils.h">
+      <Filter>Temp</Filter>
+    </ClInclude>
+    <ClInclude Include="StringUtils.h">
+      <Filter>Temp</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureDisplay.h">
+      <Filter>Temp</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Temp</Filter>
+    </ClInclude>
+    <ClInclude Include="hittable.h">
+      <Filter>RayTracing</Filter>
+    </ClInclude>
+    <ClInclude Include="sphere.h">
+      <Filter>RayTracing</Filter>
+    </ClInclude>
+    <ClInclude Include="hittablelist.h">
+      <Filter>RayTracing</Filter>
+    </ClInclude>
+    <ClInclude Include="rtweekend.h">
+      <Filter>RayTracing</Filter>
+    </ClInclude>
+    <ClInclude Include="interval.h">
+      <Filter>RayTracing</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>RayTracing</Filter>
+    </ClInclude>
+    <ClInclude Include="material.h">
+      <Filter>RayTracing</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

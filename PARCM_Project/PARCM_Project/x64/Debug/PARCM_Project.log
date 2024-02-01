@@ -1,0 +1,5 @@
+﻿  main.cpp
+E:\.School\GDPARCM\GDPARCM\PARCM_Project\PARCM_Project\camera.h(42,86): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+E:\.School\GDPARCM\GDPARCM\PARCM_Project\PARCM_Project\camera.h(42,69): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+E:\.School\GDPARCM\GDPARCM\PARCM_Project\PARCM_Project\camera.h(42,52): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  PARCM_Project.vcxproj -> E:\.School\GDPARCM\GDPARCM\PARCM_Project\x64\Debug\PARCM_Project.exe
