@@ -1,12 +1,14 @@
-/*
+
 #include <iostream>
 #include "BaseRunner.h"
 int main() {
 	BaseRunner runner;
 	runner.run();
+    
+    
 }
-*/
 
+/*
 #include "opencv2/core.hpp"
 #include <iostream>
 #include <opencv2/imgcodecs.hpp>
@@ -48,8 +50,6 @@ color ray_color(const ray& r, const hittable& world) {
 }
 
 int main() {
-
-   
     
     hittable_list world;
 
@@ -116,4 +116,4 @@ int main() {
 
     cam.render(world);
 }
-
+*/

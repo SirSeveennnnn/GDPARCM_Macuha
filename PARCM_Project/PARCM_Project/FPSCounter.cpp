@@ -1,6 +1,7 @@
 #include "FPSCounter.h"
 #include <iostream>
 #include "BaseRunner.h"
+#include <string>
 
 FPSCounter::FPSCounter(): AGameObject("FPSCounter")
 {
@@ -28,6 +29,7 @@ void FPSCounter::initialize()
 
 void FPSCounter::processInput(sf::Event event)
 {
+	
 }
 
 void FPSCounter::update(sf::Time deltaTime)
@@ -45,5 +47,6 @@ void FPSCounter::draw(sf::RenderWindow* targetWindow)
 
 void FPSCounter::updateFPS(sf::Time elapsedTime)
 {
-	this->statsText->setString("FPS: --\n");
+	float fps = 1.f / elapsedTime.asSeconds();
+	this->statsText->setString("FPS:" + std::to_string(fps));
 }

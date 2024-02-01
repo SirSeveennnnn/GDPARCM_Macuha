@@ -2,6 +2,8 @@
 #include <unordered_map>
 #include "SFML/Graphics.hpp"
 
+class TextureDisplay;
+
 class TextureManager
 {
 public:
@@ -12,13 +14,15 @@ public:
 public:
 	static TextureManager* getInstance();
 	void loadFromAssetList(); //loading of all assets needed for startup
-	void loadSingleStreamAsset(int index); //loads a single streaming asset based on index in directory
+	void loadSingleStreamAsset(int index, TextureDisplay *display); //loads a single streaming asset based on index in directory
 	sf::Texture* getFromTextureMap(const String assetName, int frameIndex);
 	int getNumFrames(const String assetName);
 
 	sf::Texture* getStreamTextureFromList(const int index);
 	int getNumLoadedStreamTextures() const;
+	void instantiateAsTexture(String path, String assetName, bool isStreaming);
 
+	int streamingAssetCount = 0;
 private:
 	TextureManager();
 	TextureManager(TextureManager const&) {};             // copy constructor is private
@@ -30,9 +34,9 @@ private:
 	TextureList streamTextureList;
 
 	const std::string STREAMING_PATH = "Media/Streaming/";
-	int streamingAssetCount = 0;
+
 
 	void countStreamingAssets();
-	void instantiateAsTexture(String path, String assetName, bool isStreaming);
+
 
 };

@@ -24,6 +24,7 @@ BaseRunner::BaseRunner() :
 
 	FPSCounter* fpsCounter = new FPSCounter();
 	GameObjectManager::getInstance()->addObject(fpsCounter);
+
 }
 
 void BaseRunner::run() {
@@ -43,6 +44,11 @@ void BaseRunner::run() {
 		}
 
 		render();
+
+		sf::Time sleepTime = TIME_PER_FRAME - clock.getElapsedTime();
+		if (sleepTime > sf::Time::Zero) {
+			sf::sleep(sleepTime);
+		}
 	}
 }
 

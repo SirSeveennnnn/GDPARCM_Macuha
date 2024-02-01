@@ -48,6 +48,9 @@
     <ClCompile Include="TextureManager.cpp">
       <Filter>Temp</Filter>
     </ClCompile>
+    <ClCompile Include="StreamAssetLoader.cpp">
+      <Filter>Temp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RTImage.h">
@@ -115,6 +118,9 @@
     </ClInclude>
     <ClInclude Include="material.h">
       <Filter>RayTracing</Filter>
+    </ClInclude>
+    <ClInclude Include="StreamAssetLoader.h">
+      <Filter>Temp</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
