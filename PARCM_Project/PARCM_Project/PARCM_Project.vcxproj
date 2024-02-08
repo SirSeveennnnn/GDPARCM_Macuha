@@ -140,6 +140,8 @@
     <ClCompile Include="IETThread.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MathUtils.cpp" />
+    <ClCompile Include="RTSemaphore.cpp" />
+    <ClCompile Include="RTThread.cpp" />
     <ClCompile Include="RTImage.cpp" />
     <ClCompile Include="StreamAssetLoader.cpp" />
     <ClCompile Include="StringUtils.cpp" />
@@ -162,6 +164,8 @@
     <ClInclude Include="material.h" />
     <ClInclude Include="MathUtils.h" />
     <ClInclude Include="ray.h" />
+    <ClInclude Include="RTSemaphore.h" />
+    <ClInclude Include="RTThread.h" />
     <ClInclude Include="RTImage.h" />
     <ClInclude Include="rtweekend.h" />
     <ClInclude Include="sphere.h" />

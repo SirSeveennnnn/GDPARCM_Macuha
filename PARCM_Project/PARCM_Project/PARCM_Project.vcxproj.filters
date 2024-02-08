@@ -51,6 +51,12 @@
     <ClCompile Include="StreamAssetLoader.cpp">
       <Filter>Temp</Filter>
     </ClCompile>
+    <ClCompile Include="RTThread.cpp">
+      <Filter>RayTracing</Filter>
+    </ClCompile>
+    <ClCompile Include="RTSemaphore.cpp">
+      <Filter>RayTracing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RTImage.h">
@@ -121,6 +127,12 @@
     </ClInclude>
     <ClInclude Include="StreamAssetLoader.h">
       <Filter>Temp</Filter>
+    </ClInclude>
+    <ClInclude Include="RTThread.h">
+      <Filter>RayTracing</Filter>
+    </ClInclude>
+    <ClInclude Include="RTSemaphore.h">
+      <Filter>RayTracing</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -7,7 +7,10 @@
 #include "hittable.h"
 #include "material.h"
 #include "RTImage.h"
+#include "RTThread.h"
 #include <iostream>
+#include <vector>
+#include "RTSemaphore.h"
 
 class camera {
 public:
@@ -25,26 +28,114 @@ public:
     double defocus_angle = 0;  // Variation angle of rays through each pixel
     double focus_dist = 10;    // Distance from camera lookfrom point to plane of perfect focus
 
-    void render(const hittable& world) {
-        initialize();
+    RTImage* image;
+    hittable* world;
+    std::vector<RTThread*> threadList;
+    RTSemaphore* image_semaphore;
+    
 
-        std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
+    void render(hittable& world) {
+        initialize();
+        this->world = &world;
+        image_semaphore = new RTSemaphore();
+        //std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
         for (int j = 0; j < image_height; ++j) {
-            std::clog << "\rScanlines remaining: " << (image_height - j) << ' ' << std::flush;
+          
+            RTThread* thread = new RTThread(j, this, image_semaphore);
+            thread->start();
+
+            threadList.push_back(thread);
+            /*
             for (int i = 0; i < image_width; ++i) {
                 color pixel_color(0, 0, 0);
                 for (int sample = 0; sample < samples_per_pixel; ++sample) {
                     ray r = get_ray(i, j);
                     pixel_color += ray_color(r, max_depth, world);
                 }
-                //write_color(std::cout, pixel_color, samples_per_pixel);
+
                 image->setPixel(i, j, pixel_color.x(), pixel_color.y(), pixel_color.z(), samples_per_pixel);
             }
+              */
+        }
+        
+        while (true) // Infinite loop, will break when no thread is running
+        {
+            bool anyThreadRunning = false; // Flag to track if any thread is running
+
+            
+            for (int i = 0; i < threadList.size(); i++)
+            {
+                if (threadList[i]->isRunning)
+                {
+                    std::cout << "Thread " << threadList[i]->id << " is still running" << std::endl;
+                }
+                else
+                {
+                    std::cout << "Thread " << threadList[i]->id << " is done" << std::endl;
+                }
+            }
+             
+
+            for (int i = 0; i < threadList.size(); i++)
+            {
+                if (threadList[i]->isRunning)
+                {
+                    anyThreadRunning = true; // Set the flag to true if any thread is running
+                    break; // Exit the for loop early
+                }
+            }
+
+            if (!anyThreadRunning)
+            {
+                cv::String fileName = "E:/.School/GDPARCM/GDPARCM_Macuha/PARCM_Project/ImageRender.png";
+                image->saveImage(fileName);
+                std::cout << "ALL THREAD COMPLETED" << std::endl;
+               
+                break;
+            }
+        }
+         
+        //Delete threads
+        for (int i = 0; i < threadList.size(); i++)
+        {
+            delete threadList[i];
         }
 
-        std::clog << "\rDone.                 \n";
-        image->saveImage(fileName);
+
+    }
+
+    ray get_ray(int i, int j) const {
+        // Get a randomly-sampled camera ray for the pixel at location i,j, originating from
+        // the camera defocus disk.
+
+        // Get a randomly sampled camera ray for the pixel at location i,j.
+        auto pixel_center = pixel00_loc + (i * pixel_delta_u) + (j * pixel_delta_v);
+        auto pixel_sample = pixel_center + pixel_sample_square();
+
+        auto ray_origin = (defocus_angle <= 0) ? center : defocus_disk_sample();
+        auto ray_direction = pixel_sample - ray_origin;
+
+        return ray(ray_origin, ray_direction);
+    }
+
+    color ray_color(const ray& r, int depth, const hittable& world) const {
+        hit_record rec;
+
+        if (depth <= 0)
+            return color(0, 0, 0);
+
+        if (world.hit(r, interval(0.001, infinity), rec)) {
+            ray scattered;
+            color attenuation;
+            if (rec.mat->scatter(r, rec, attenuation, scattered))
+                return attenuation * ray_color(scattered, depth - 1, world);
+            return color(0, 0, 0);
+        }
+
+        vec3 unit_direction = unit_vector(r.direction());
+        auto a = 0.5 * (unit_direction.y() + 1.0);
+        return (1.0 - a) * color(1.0, 1.0, 1.0) + a * color(0.5, 0.7, 1.0);
     }
 
 private:
@@ -60,7 +151,7 @@ private:
     vec3   defocus_disk_u;  // Defocus disk horizontal radius
     vec3   defocus_disk_v;  // Defocus disk vertical radius
 
-    RTImage* image;
+    
 
     void initialize() {
         image_height = static_cast<int>(image_width / aspect_ratio);
@@ -100,19 +191,7 @@ private:
         image = new RTImage(image_width, image_height);
     }
 
-    ray get_ray(int i, int j) const {
-        // Get a randomly-sampled camera ray for the pixel at location i,j, originating from
-        // the camera defocus disk.
-
-        // Get a randomly sampled camera ray for the pixel at location i,j.
-        auto pixel_center = pixel00_loc + (i * pixel_delta_u) + (j * pixel_delta_v);
-        auto pixel_sample = pixel_center + pixel_sample_square();
-
-        auto ray_origin = (defocus_angle <= 0) ? center : defocus_disk_sample();
-        auto ray_direction = pixel_sample - ray_origin;
-
-        return ray(ray_origin, ray_direction);
-    }
+    
 
     point3 defocus_disk_sample() const {
         // Returns a random point in the camera defocus disk.
@@ -127,24 +206,7 @@ private:
         return (px * pixel_delta_u) + (py * pixel_delta_v);
     }
 
-    color ray_color(const ray& r, int depth, const hittable& world) const {
-        hit_record rec;
-
-        if (depth <= 0)
-            return color(0, 0, 0);
-
-        if (world.hit(r, interval(0.001, infinity), rec)) {
-            ray scattered;
-            color attenuation;
-            if (rec.mat->scatter(r, rec, attenuation, scattered))
-                return attenuation * ray_color(scattered, depth - 1, world);
-            return color(0, 0, 0);
-        }
-
-        vec3 unit_direction = unit_vector(r.direction());
-        auto a = 0.5 * (unit_direction.y() + 1.0);
-        return (1.0 - a) * color(1.0, 1.0, 1.0) + a * color(0.5, 0.7, 1.0);
-    }
+   
 
 
 };
